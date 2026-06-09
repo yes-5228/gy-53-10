@@ -9,7 +9,12 @@ defineProps({
 
 <template>
   <div class="stat-grid">
-    <section v-for="item in stats" :key="item.label" class="stat-card">
+    <section
+      v-for="item in stats"
+      :key="item.label"
+      class="stat-card"
+      :class="{ 'overdue-stat': item.overdue }"
+    >
       <span>{{ item.label }}</span>
       <strong>{{ item.value }}</strong>
     </section>

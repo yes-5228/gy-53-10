@@ -3,6 +3,7 @@ import { http } from "./http";
 export const parkingApi = {
   getSpaces: () => http.get("/spaces"),
   updateSpace: (id, payload) => http.patch(`/spaces/${id}`, payload),
+  confirmMaintenance: (id) => http.post(`/spaces/${id}/confirm-maintenance`),
   getCards: () => http.get("/monthly-cards"),
   createCard: (payload) => http.post("/monthly-cards", payload),
   updateCard: (id, payload) => http.patch(`/monthly-cards/${id}`, payload),

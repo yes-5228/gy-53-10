@@ -319,6 +319,90 @@ th {
   opacity: 0.6;
 }
 
+.space-card.overdue {
+  animation: overdue-pulse 2s ease-in-out infinite;
+  border-color: #e25c3c;
+  box-shadow: 0 10px 28px rgb(226 92 60 / 18%);
+}
+
+.overdue-banner {
+  background: #fde4df;
+  border-radius: 6px;
+  color: #9b2e1c;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 10px;
+}
+
+.time-info {
+  color: #65746e;
+  font-size: 13px;
+  margin: 0;
+}
+
+.time-info.overdue-text {
+  color: #a13724;
+  font-weight: 700;
+}
+
+.danger-button {
+  background: #e25c3c;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 34px;
+  padding: 0 12px;
+}
+
+.stat-card.overdue-stat {
+  border-color: #e25c3c;
+}
+
+.stat-card.overdue-stat strong {
+  color: #e25c3c;
+}
+
+@keyframes overdue-pulse {
+  0%,
+  100% {
+    box-shadow: 0 10px 28px rgb(226 92 60 / 18%);
+  }
+  50% {
+    box-shadow: 0 10px 36px rgb(226 92 60 / 32%);
+  }
+}
+
+.reminder-banner {
+  align-items: center;
+  background: linear-gradient(135deg, #fde4df 0%, #fff0c8 100%);
+  border: 1px solid #f3c4ba;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.reminder-banner strong {
+  color: #9b2e1c;
+}
+
+.reminder-banner p {
+  color: #654321;
+  margin: 2px 0 0;
+}
+
+.reminder-banner button {
+  margin-left: auto;
+}
+
+.datetime-input {
+  font-size: 13px;
+  min-height: 32px;
+  padding: 4px 8px;
+}
+
 @media (max-width: 860px) {
   .app-shell {
     grid-template-columns: 1fr;

@@ -31,7 +31,8 @@ def init_db():
                 area TEXT NOT NULL,
                 status TEXT NOT NULL,
                 plate_number TEXT,
-                updated_at TEXT NOT NULL
+                updated_at TEXT NOT NULL,
+                maintenance_end_time TEXT
             );
 
             CREATE TABLE IF NOT EXISTS monthly_cards (
@@ -70,21 +71,28 @@ def init_db():
             """
         )
 
+        cols = conn.execute("PRAGMA table_info(spaces)").fetchall()
+        col_names = {c["name"] for c in cols}
+        if "maintenance_end_time" not in col_names:
+            conn.execute(
+                "ALTER TABLE spaces ADD COLUMN maintenance_end_time TEXT"
+            )
+
         existing = conn.execute("SELECT COUNT(*) AS count FROM spaces").fetchone()["count"]
         if existing == 0:
             conn.executemany(
                 """
-                INSERT INTO spaces (code, area, status, plate_number, updated_at)
-                VALUES (?, ?, ?, ?, datetime('now', 'localtime'))
+                INSERT INTO spaces (code, area, status, plate_number, updated_at, maintenance_end_time)
+                VALUES (?, ?, ?, ?, datetime('now', 'localtime'), ?)
                 """,
                 [
-                    ("A-001", "A区", "occupied", "沪A12345"),
-                    ("A-002", "A区", "free", None),
-                    ("A-003", "A区", "reserved", None),
-                    ("B-001", "B区", "free", None),
-                    ("B-002", "B区", "occupied", "浙B88K21"),
-                    ("C-001", "C区", "maintenance", None),
-                    ("C-002", "C区", "free", None),
-                    ("C-003", "C区", "free", None),
+                    ("A-001", "A区", "occupied", "沪A12345", None),
+                    ("A-002", "A区", "free", None, None),
+                    ("A-003", "A区", "reserved", None, None),
+                    ("B-001", "B区", "free", None, None),
+                    ("B-002", "B区", "occupied", "浙B88K21", None),
+                    ("C-001", "C区", "maintenance", None, None),
+                    ("C-002", "C区", "free", None, None),
+                    ("C-003", "C区", "free", None, None),
                 ],
             )
